@@ -1,5 +1,6 @@
 package br.com.gestor.service;
 
+import java.net.ConnectException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class PessoaService {
 	@Autowired
 	private PessoaRepository pessoaRepository;
 	
-	public PessoaDTO inserirPessoas(PessoaDTO pessoa) {
+	public PessoaDTO inserirPessoas(PessoaDTO pessoa) throws Exception {
 		ResponseEntity<PessoaDTO> entity = restTemplate.postForEntity(urlCadastroPessoa, pessoa, PessoaDTO.class);
 		return entity.getBody();
 	}

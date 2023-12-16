@@ -19,7 +19,7 @@ public class PessoaDTO {
 	@NotBlank(message = "Preencha o Nome da Pessoa")
 	private String nome;
 	
-	@NotBlank(message = "Preencha a Data de Nascimento da pessoa")
+	@NotNull(message = "Preencha a Data de Nascimento da pessoa")
 	private LocalDate dataNascimento;
 	
 	@NotBlank(message = "Preencha o CPF")

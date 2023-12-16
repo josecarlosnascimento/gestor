@@ -3,6 +3,7 @@ package br.com.gestor.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.net.ConnectException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,12 @@ public class PessoaServiceTest {
 		when(restTemplate.postForEntity(urlCadastroPessoa, pessoaDTO, PessoaDTO.class))
 						.thenReturn(ResponseEntity.ok(pessoaDTORetorno));
 		
-		pessoaService.inserirPessoas(pessoaDTO);
+		try {
+			pessoaService.inserirPessoas(pessoaDTO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		assertEquals(true, pessoaDTORetorno.getId() > 0);
 	}

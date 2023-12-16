@@ -22,7 +22,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import br.com.gestor.controller.dto.PessoaDTO;
 import br.com.gestor.controller.dto.ProjetoDTO;
-import br.com.gestor.model.ProjetoModel;
 import br.com.gestor.repository.PessoaRepository;
 import br.com.gestor.service.ProjetoService;
 import br.com.gestor.service.mappers.PessoaMapper;

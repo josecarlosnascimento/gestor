@@ -12,6 +12,13 @@
 
 <meta charset="ISO-8859-1">
 <title>Inclusão de Pessoas</title>
+<style type="text/css">
+
+.error{
+	color: red
+}
+
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/common/menu.jsp"%>
@@ -25,11 +32,15 @@
 						<div class="alert alert-success" role="alert">${pessoa.nome}
 							Salvo(a) com Sucesso.</div>
 					</c:if>
+					<c:if test="${sistemaIndisponivel}">
+						<div class="alert alert-danger" role="alert">Sistema Indiponível</div>
+					</c:if>
 					<div class="form-row">
 						<div class="form-group col-md-8">
 							<label for="nome">Nome</label>
 							<form:input type="text" class="form-control" id="nome"
 								path="nome" placeholder="Digite o Nome"></form:input>
+								<form:errors path="nome" cssClass="error" />
 						</div>
 					</div>
 					<div class="form-row">
@@ -37,11 +48,13 @@
 							<label for="dataNascimento">Data Nacimento</label>
 							<form:input type="text" class="form-control" id="dataNascimento"
 								path="dataNascimento" placeholder="dd/mm/yyyy"></form:input>
+							<form:errors path="dataNascimento" cssClass="error" />
 						</div>
 						<div class="form-group col-md-4">
 							<label for="cpf">CPF:</label>
 							<form:input type="text" path="cpf" class="form-control" id="cpf"
 								placeholder="Digite o CPF"></form:input>
+							<form:errors path="cpf" cssClass="error" />
 						</div>
 						<div class="form-group col-md-4">
 							<label for="status">Cargo</label>

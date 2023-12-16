@@ -110,7 +110,6 @@
 									<form:option value="${gerente.id}" label="${gerente.nome}"></form:option>
 								</c:forEach>
 							</form:select>
-							<form:errors path="gerente.id" cssClass="error" />
 						</div>
 					</div>
 					<div align="right">
