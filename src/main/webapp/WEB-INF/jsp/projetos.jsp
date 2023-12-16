@@ -13,6 +13,13 @@
 
 <meta charset="ISO-8859-1">
 <title>Inclusão de Projetos</title>
+<style type="text/css">
+
+.error{
+	color: red
+}
+
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/common/menu.jsp"%>
@@ -41,27 +48,32 @@
 							<label for="dataInicio">Data Inicio</label>
 							<form:input type="text" class="form-control" id="dataInicio"
 								path="dataInicio" placeholder="dd/mm/yyyy"></form:input>
+							<form:errors path="dataInicio" cssClass="error" />
 						</div>
 						<div class="form-group col-md-4">
 							<label for="dataPrevisao">Data Prevista</label>
 							<form:input type="text" class="form-control" id="dataPrevisao"
 								path="dataPrevisao" placeholder="dd/mm/yyyy"></form:input>
+							<form:errors path="dataPrevisao" cssClass="error" />
 						</div>
 						<div class="form-group col-md-4">
 							<label for="dataPrevista">Data Fim</label>
 							<form:input type="text" class="form-control" id="dataTemino"
 								path="dataTemino" placeholder="dd/mm/yyyy"></form:input>
+							<form:errors path="dataTemino" cssClass="error" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputAddress">Descrição</label>
 						<form:textarea class="form-control" id="descricao"
 							path="descricao" placeholder="Detalhes do Projeto"></form:textarea>
+						<form:errors path="descricao" cssClass="error" />
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-4">
 							<label for="status">Status</label>
 							<form:select id="status" path="status" class="form-control">
+								<option value="" label="-- SELECIONE --"></option>
 								<option value="EM ANALISE" label="EM ANALISE" />
 								<option value="ANALISE REALIZADA" label="ANALISE REALIZADA" />
 								<option value="ANALISE APROVADA" label="ANALISE APROVADA" />
@@ -71,30 +83,34 @@
 								<option value="ENCERRADO" label="ENCERRADO" />
 								<option value="CANCELADO" label="CANCELADO" />
 							</form:select>
+							<form:errors path="status" cssClass="error" />
 						</div>
 						<div class="form-group col-md-4">
 							<label for="risco">Risco</label>
 							<form:select id="risco" path="risco" class="form-control">
+								<option value="" label="-- SELECIONE --"></option>
 								<option value="BAIXO" label="BAIXO" />
 								<option value="MEDIO" label="MEDIO" />
 								<option value="ALTO" label="ALTO" />
 							</form:select>
+							<form:errors path="risco" cssClass="error" />
 						</div>
 						<div class="form-group col-md-4">
 							<label for="orcamento">Orçamento</label>
 							<form:input type="text" path="orcamento" class="form-control"
 								id="orcamento" placeholder="Valor do Orçamento"></form:input>
+							<form:errors path="orcamento" cssClass="error" />
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="gerente">Gerente</label>
 							<form:select path="gerente.id" class="form-control">
-								<form:option value="0" label="-- SELECIONE --"></form:option>
 								<c:forEach items="${gerentes}" var="gerente">
 									<form:option value="${gerente.id}" label="${gerente.nome}"></form:option>
 								</c:forEach>
 							</form:select>
+							<form:errors path="gerente.id" cssClass="error" />
 						</div>
 					</div>
 					<div align="right">

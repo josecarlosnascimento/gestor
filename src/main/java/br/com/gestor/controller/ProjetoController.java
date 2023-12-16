@@ -9,17 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import br.com.gestor.controller.dto.PessoaDTO;
 import br.com.gestor.controller.dto.ProjetoDTO;
+import br.com.gestor.model.ProjetoModel;
 import br.com.gestor.repository.PessoaRepository;
 import br.com.gestor.service.ProjetoService;
 import br.com.gestor.service.mappers.PessoaMapper;
@@ -44,12 +47,25 @@ public class ProjetoController {
     }
 
 	@PostMapping
-    public RedirectView incluirProjetos(@ModelAttribute(name = "projeto")@Valid ProjetoDTO projeto, RedirectAttributes redirectAttributes) {
-    	RedirectView redirectView = new RedirectView("projetos", true);
-        redirectAttributes.addFlashAttribute("meuProjeto", projectService.incluirProjetos(projeto));
-        redirectAttributes.addFlashAttribute("projetoAdicionado", true);
-        return redirectView;
-
+    public ModelAndView incluirProjetos(@ModelAttribute(name = "projeto")@Valid ProjetoDTO projeto,
+    																			BindingResult result,
+    																			Model m) {
+        ModelAndView mv = new ModelAndView("projetos", "projeto", projeto);
+        List<PessoaDTO> pessoas = pessoaRepository.findByGerente(true)
+        		.stream().map(p-> PessoaMapper.MAPPER.toDTO(p)).collect(Collectors.toList());
+        if(result.hasErrors()){
+            mv.addObject("gerentes", pessoas);
+        }else {
+        	var projetoModel = projectService.incluirProjetos(projeto);
+        	
+        	if(projetoModel.getId() > 0) {
+        		mv = new ModelAndView("projetos", "projeto", new ProjetoDTO());
+        		mv.addObject("meuProjeto", projetoModel);
+        		mv.addObject("projetoAdicionado", true);
+                mv.addObject("gerentes", pessoas);
+        	}
+        }
+        return mv;
     }
 
     @GetMapping("/listagem-projetos")

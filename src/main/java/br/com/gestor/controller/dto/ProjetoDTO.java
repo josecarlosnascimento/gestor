@@ -37,7 +37,6 @@ public class ProjetoDTO {
 	@NotBlank(message = "Preencha o Risco")
 	private String risco;
 
-	@NotNull
 	private PessoaDTO gerente;
 	
 	public boolean isPermiteExclusao() {
