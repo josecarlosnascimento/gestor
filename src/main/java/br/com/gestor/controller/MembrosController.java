@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,8 +53,8 @@ public class MembrosController {
 				return "membros";
 	}
 
-	@GetMapping("/listagem-membros")
-    public ModelAndView listagemMembros(@ModelAttribute(name = "membro")@Valid MembroDTO membro, Model model) {
+	@GetMapping("/listagem-membros/{idProjeto}")
+    public ModelAndView listagemMembros(@PathVariable Long idProjeto, @ModelAttribute(name = "membro")@Valid MembroDTO membro, Model model) {
 		
 		
         ModelAndView mv = new ModelAndView("membros", "membro", membro);
@@ -61,7 +62,7 @@ public class MembrosController {
 		List<PessoaDTO> funcionarios = pessoaRepository.findByGerente(false)
 				.stream().map(p-> PessoaMapper.MAPPER.toDTO(p)).collect(Collectors.toList());
 		
-		List<MembroModel> membros = membroRepository.findByProjetoId(membro.getProjeto().getId());
+		List<MembroModel> membros = membroRepository.findByProjetoId(idProjeto);
 
 		List<Long> idsMembros = membros.stream().map(m -> m.getId()).collect(Collectors.toList());
 		
@@ -87,6 +88,7 @@ public class MembrosController {
     																			BindingResult result,
     																			Model m,
     																			HttpServletRequest request) {
+
         ModelAndView mv = new ModelAndView("membros", "membro", membro);
         return mv;
     }
