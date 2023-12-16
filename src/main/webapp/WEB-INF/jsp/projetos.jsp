@@ -32,7 +32,7 @@
 				<div class="card-body">
 					<c:if test="${projetoAdicionado}">
 						<div class="alert alert-success" role="alert">Projeto
-							${meuProjeto.nome} Salvo com Sucesso.</div>
+							salvo com sucesso.</div>
 					</c:if>
 					<div class="form-row">
 						<div class="form-group col-md-6">

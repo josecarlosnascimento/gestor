@@ -29,8 +29,7 @@
 				<h6 class="card-header">Dados da Pessoa</h6>
 				<div class="card-body">
 					<c:if test="${pessoaAdicionada}">
-						<div class="alert alert-success" role="alert">${pessoa.nome}
-							Salvo(a) com Sucesso.</div>
+						<div class="alert alert-success" role="alert">Pessoa salva com Sucesso.</div>
 					</c:if>
 					<c:if test="${sistemaIndisponivel}">
 						<div class="alert alert-danger" role="alert">Sistema Indiponível</div>

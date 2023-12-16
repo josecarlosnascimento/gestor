@@ -1,6 +1,5 @@
 package br.com.gestor.controller;
 
-import java.net.ConnectException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,11 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import br.com.gestor.controller.dto.PessoaDTO;
-import br.com.gestor.controller.dto.ProjetoDTO;
 import br.com.gestor.repository.PessoaRepository;
 import br.com.gestor.service.PessoaService;
 import br.com.gestor.service.mappers.PessoaMapper;
@@ -50,14 +46,6 @@ public class PessoaController {
     	return "/pessoas";
     }
 	
-//    @PostMapping("/bkp")
-//    public RedirectView incluirPessoas(@ModelAttribute(name = "pessoa") PessoaDTO pessoa, RedirectAttributes redirectAttributes) {
-//    	RedirectView redirectView = new RedirectView("pessoas", true);
-//        redirectAttributes.addFlashAttribute("pessoa", pessoaService.inserirPessoas(pessoa));
-//        redirectAttributes.addFlashAttribute("pessoaAdicionada", true);
-//        return redirectView;
-//    }
-    
 	@PostMapping
     public ModelAndView incluirProjetos(@ModelAttribute(name = "pessoa") @Valid PessoaDTO pessoa,
     																			BindingResult result,
@@ -68,14 +56,12 @@ public class PessoaController {
 				var pessoaDTO = pessoaService.inserirPessoas(pessoa);
 				if(pessoaDTO.getId() > 0) {
 					mv = new ModelAndView("pessoas", "pessoa", new PessoaDTO());
-					mv.addObject("pessoa", pessoaDTO);
 					mv.addObject("pessoaAdicionada", true);
 				}
 			} catch (Exception e) {
 				mv.addObject("pessoa", pessoa);
 				mv.addObject("sistemaIndisponivel", true);
 			}
-        	
         }
         return mv;
     }

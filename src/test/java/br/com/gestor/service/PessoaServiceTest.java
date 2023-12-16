@@ -3,7 +3,6 @@ package br.com.gestor.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.net.ConnectException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

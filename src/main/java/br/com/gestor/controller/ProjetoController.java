@@ -59,7 +59,6 @@ public class ProjetoController {
         	
         	if(projetoModel.getId() > 0) {
         		mv = new ModelAndView("projetos", "projeto", new ProjetoDTO());
-        		mv.addObject("meuProjeto", projetoModel);
         		mv.addObject("projetoAdicionado", true);
                 mv.addObject("gerentes", pessoas);
         	}
