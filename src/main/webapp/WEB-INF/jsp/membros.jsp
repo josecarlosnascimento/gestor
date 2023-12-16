@@ -36,7 +36,7 @@
 								<form:select path="projeto.id" class="form-control" id="projeto">
 									<form:option value="0" label="-- SELECIONE --"></form:option>
 									<c:forEach items="${projetos}" var="projeto">
-										<form:option  value="${projeto.id}" label="${projeto.nome}"></form:option>
+										<form:option value="${projeto.id}" label="${projeto.nome}"></form:option>
 									</c:forEach>
 								</form:select>
 							</div>
@@ -52,7 +52,7 @@
 							<ul class="list-group">
 								<c:forEach items="${membro.pessoas}" var="membro" varStatus="vs">
 									<li class="list-group-item"><form:checkbox
-											class="form-check-input me-1" path="pessoas[${vs.index}]"
+											class="form-check-input me-1" path="pessoas"
 											value="${membro}"
 											label="${membro.nome}" id="${membro.id}"
 											checked="${membro.membro}"></form:checkbox></li>

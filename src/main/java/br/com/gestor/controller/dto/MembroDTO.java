@@ -1,6 +1,6 @@
 package br.com.gestor.controller.dto;
 
-import java.util.List;
+import java.util.Set;
 
 import lombok.Data;
 
@@ -11,5 +11,5 @@ public class MembroDTO {
 	
 	private ProjetoDTO projeto;
 
-	private List<PessoaDTO> pessoas;
+	private Set<PessoaDTO> pessoas;
 }

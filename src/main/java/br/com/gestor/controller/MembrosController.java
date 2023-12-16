@@ -1,8 +1,8 @@
 package br.com.gestor.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +73,7 @@ public class MembrosController {
 		
 		pessoasMembros.forEach(p -> p.setMembro(true));
 		
-		List<PessoaDTO> todos = new ArrayList<>();
+		Set<PessoaDTO> todos = new HashSet<>();
 		todos.addAll(funcionarios);
 		todos.addAll(pessoasMembros);
 		
