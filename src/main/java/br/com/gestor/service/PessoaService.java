@@ -1,6 +1,5 @@
 package br.com.gestor.service;
 
-import java.net.ConnectException;
 import java.util.List;
 import java.util.stream.Collectors;
 

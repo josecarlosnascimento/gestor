@@ -1,16 +1,22 @@
 package br.com.gestor.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.com.gestor.controller.dto.MembroDTO;
 import br.com.gestor.controller.dto.PessoaDTO;
@@ -47,12 +53,13 @@ public class MembrosController {
 	}
 
 	@GetMapping("/listagem-membros")
-    public String listagemMembros(@ModelAttribute(name = "membro")@Valid MembroDTO membro, Model model) {
-		model.addAttribute("membro", new MembroDTO());
+    public ModelAndView listagemMembros(@ModelAttribute(name = "membro")@Valid MembroDTO membro, Model model) {
+		
+		
+        ModelAndView mv = new ModelAndView("membros", "membro", membro);
 
 		List<PessoaDTO> funcionarios = pessoaRepository.findByGerente(false)
 				.stream().map(p-> PessoaMapper.MAPPER.toDTO(p)).collect(Collectors.toList());
-		model.addAttribute("funcionarios", funcionarios);
 		
 		List<MembroModel> membros = membroRepository.findByProjetoId(membro.getProjeto().getId());
 
@@ -64,8 +71,23 @@ public class MembrosController {
     	    						.collect(Collectors.toList());
 		
 		pessoasMembros.forEach(p -> p.setMembro(true));
-		model.addAttribute("membros", pessoasMembros);
+		
+		List<PessoaDTO> todos = new ArrayList<>();
+		todos.addAll(funcionarios);
+		todos.addAll(pessoasMembros);
+		
+		membro.setPessoas(todos);
 
-        return "membros";
+		mv.addObject("membros", membro.getPessoas());
+        return mv;
+    }
+	
+	@PostMapping
+    public ModelAndView incluirProjetos(@ModelAttribute @Valid MembroDTO membro,
+    																			BindingResult result,
+    																			Model m,
+    																			HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView("membros", "membro", membro);
+        return mv;
     }
 }
